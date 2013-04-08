@@ -18,7 +18,9 @@ born.
 
 When the width of a table changes due to viewport size changes, two things are
 needed:
+
 1. Criteria to decide which columns appear/disappear and in which order.
+
 2. Some way of viewing the hidden columns.
 
 ##What Horton provides.
@@ -39,16 +41,19 @@ below a breakpoint, specified columns get hidden.
 
 ##Basic element notation.
 
-All of these attributes occur in the `<th>` elements inside a `<thead>` of an
+All of these attributes occur in the `<TH>` elements inside a `<THEAD>` of an
 HTML table.
 
 <table rules='all' frame='border'>
   <thead>
-    <tr><th>Name</th><th>Context><th>Description</th></tr>
+    <tr>
+      <th>Attribute Name</th><th>Type</th><th>Context<th>Description</th>
+    </tr>
   </thead>
   <tbody>
     <tr>
-      <td>data-expander='true|false'</td>
+      <td>data-expander</td>
+      <td>boolean</td>
       <td>&lt;TH&gt;</td>
       <td>
         When a row has some columns hidden, the &lt;TH&gt; element that has
@@ -58,21 +63,23 @@ HTML table.
       </td>
     </tr>
     <tr>
-      <td>data-hide='...'</td>
+      <td>data-hide</td>
+      <td>string</td>
       <td>&lt;TH&gt;</td>
       <td>
         This attribute takes a comma separated list of breakpoint names. For
-        example `data-hide='phone,tablet'`. Both of these names represent
-        widths. If the viewport width is less than or equal to any of the
-        named widths in this list, the column is hidden.
+        example <code>data-hide='phone,tablet'</code>. Both of these names
+        represent widths. If the viewport width is less than or equal to any
+        of the named widths in this list, the column is hidden.
       </td>
     </tr>
     <tr>
       <td>data-name='...'</td>
+      <td>string</td>
       <td>&lt;TH&gt;</td>
       <td>
-        This overrides the default column name, which is the text of the
-        &lt;TH&gt; element.
+        This overrides the default column name. The default column name is the
+        text of the &lt;TH&gt; element.
       </td>
     </tr>
   </tbody>
