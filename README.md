@@ -49,7 +49,7 @@ single column with column names and the value(s) indented a bit below them.
 Much of the functionality of Horton can be seen in the demo located at
 http://www.math.nmsu.edu/~mleisher/Software/javascript/Horton/.
 
-###Core attributes
+###Core Attributes
 
 All of these attributes occur in the `<TH>` elements inside a `<THEAD>` of an
 HTML table.
@@ -193,7 +193,7 @@ $(document).ready(function(){
 });
 ```
 
-###Default options
+###Core Options
 
 These are all the default options that can be set at any time during the life
 of the table. That means, for example, that you could have a button that
@@ -291,7 +291,7 @@ changes the test breakpoint dynamically.
   </tbody>
 </table>
 
-###Requests
+###Core Requests
 
 Since it is very useful to be able to make changes to and get information from
 tables initialized with Horton, there are several requests that can be passed
@@ -376,7 +376,7 @@ to one of these tables.
           $('table.responsive').horton('replaceRows',5,8,newRow);
 ```
 
-###Events
+###Core Events
 
 The core of Horton only triggers one custom event at the moment:
 <code>horton.rows.modified</code> whenever rows are changed with requests
@@ -400,7 +400,7 @@ changed.
   means no special handling of numbers versus strings is needed to get things
   to sort "naturally."
 
-####Sorting attributes
+####Sorting Attributes
 
 <table rules='all' frame='border'>
   <thead>
@@ -457,7 +457,7 @@ changed.
   </tbody>
 </table>
 
-####Default options
+####Sorting Options
 
 <table rules='all' frame='border'>
   <thead>
@@ -519,7 +519,7 @@ changed.
 </table>
 
 
-####Requests
+####Sorting Requests
 
 The sorting plugin only provides one request.
 
@@ -543,7 +543,7 @@ The sorting plugin only provides one request.
           $('table.responsive').horton('sort','First Name',false);
 ```
 
-####Events
+####Sorting Events
 
 This plugin only triggers one custom event at the moment,
 <code>horton.sorted</code>, triggered after sorting is done by clicking on a
@@ -567,7 +567,7 @@ This doesn't really need to be a plugin, the <code>showDetails</code>
 and <code>hideDetails</code> functions of the Horton core can be replaced at
 initialization time.
 
-####Editing attributes
+####Editing Attributes
 
 <table rules='all' frame='border'>
   <thead>
@@ -591,7 +591,7 @@ initialization time.
   </tbody>
 </table>
 
-####Editing options
+####Editing Options
 
 <table rules='all' frame='border'>
   <thead>
