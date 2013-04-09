@@ -20,7 +20,7 @@
     ],
     "dependencies": {
         "jquery": ">=1.8"
-    }
+    },
     "demo": "http://www.math.nmsu.edu/~mleisher/Software/javascript/Horton"
 }
 
