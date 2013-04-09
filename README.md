@@ -272,6 +272,8 @@ changes the test breakpoint dynamically.
       <td>
         This is the function called to hide the row containing the hidden
         columns.
+        <p />
+        Has the same parameters as <code>showDetails</code>.
       </td>
     </tr>
     <tr>
