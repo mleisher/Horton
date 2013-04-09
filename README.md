@@ -49,7 +49,7 @@ single column with column names and the value(s) indented a bit below them.
 Much of the functionality of Horton can be seen in the demo located at
 http://www.math.nmsu.edu/~mleisher/Software/javascript/Horton/.
 
-###Basic element notation
+###Core attributes
 
 All of these attributes occur in the `<TH>` elements inside a `<THEAD>` of an
 HTML table.
@@ -457,6 +457,68 @@ changed.
   </tbody>
 </table>
 
+####Default options
+
+<table rules='all' frame='border'>
+  <thead>
+    <tr>
+      <th>
+        Name
+      </th>
+      <th>
+        Value
+      </th>
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        sort
+      </td>
+      <td>
+        true
+      </td>
+      <td>
+        This indicates whether sorting is enabled or not. As of version 0.1,
+        there is no way to dynamically disable sorting. That feature will
+        be available soon.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        getSortKey
+      </td>
+      <td>
+        default function to get sort key from cell
+      </td>
+      <td>
+        This is the function responsible for turning the cell contents into
+        something that can be sorted. The default function returns either the
+        value of the <code>data-sort-key</code> attribute, or the textual
+        contents of the cell.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        classes
+      </td>
+      <td>
+        {'sort-indicator': 'horton-sort-indicator',<br />
+        'sorted-ascending': 'horton-sorted-ascending',<br />
+        'sorted-descending': 'horton-sorted-descending'}
+      </td>
+      <td>
+        This is an object that maps class names to actual class names to
+        provide CSS information about sort indicators.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
 ####Requests
 
 The sorting plugin only provides one request.
@@ -505,34 +567,6 @@ This doesn't really need to be a plugin, the <code>showDetails</code>
 and <code>hideDetails</code> functions of the Horton core can be replaced at
 initialization time.
 
-####Editing options
-
-<table rules='all' frame='border'>
-  <thead>
-    <tr>
-      <th>
-        Name
-      </th>
-      <th>
-        Value
-      </th>
-      <th>
-        Description
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>editors</td>
-      <td>{'text': default text edit function}</td>
-      <td>
-        This is an object that maps editor names to functions. Some cells need a
-        more sophisticated editor than a simple text field.
-      </td>
-    </tr>
-  </tbody>
-</table>
-
 ####Editing attributes
 
 <table rules='all' frame='border'>
@@ -552,6 +586,42 @@ initialization time.
         <p />
         When applied to a &lt;TD&gt; element in the table body, this overrides
         whatever editor was specified in the table header for this column.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+####Editing options
+
+<table rules='all' frame='border'>
+  <thead>
+    <tr>
+      <th>
+        Name
+      </th>
+      <th>
+        Value
+      </th>
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>editable</td>
+      <td>true</td>
+      <td>
+        This indicates whether the editable plugin is active or not. As of
+        version 0.1, this option doesn't effect anything.
+      </td>
+    </tr>
+    <tr>
+      <td>editors</td>
+      <td>{'text': default text edit function}</td>
+      <td>
+        This is an object that maps editor names to functions. Some cells need a
+        more sophisticated editor than a simple text field.
       </td>
     </tr>
   </tbody>
