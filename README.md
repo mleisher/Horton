@@ -281,6 +281,21 @@ Since it is very useful to be able to make changes to and get information from
 tables initialized with Horton, there are several requests that can be passed
 to one of these tables.
 
+* version
+
+  This is a test.
+
+```javascript
+          var v = $('table.responsive').horton('version');
+          for (var i = 0; i < v.length; i++) {
+             if (i == 0)
+               console.log('Horton Version');
+             console.log(v[i].name, v[i].version.major+"."+v[i].version.minor);
+             if (i == 0 && v.length > 1)
+               console.log('Plugin Versions');
+          }
+```
+
 <table>
   <thead>
     <tr>
@@ -304,14 +319,6 @@ to one of these tables.
       </td>
       <td>
         <pre>
-          var v = $('table.responsive').horton('version');
-          for (var i = 0; i < v.length; i++) {
-             if (i == 0)
-               console.log('Horton Version');
-             console.log(v[i].name, v[i].version.major+"."+v[i].version.minor);
-             if (i == 0 && v.length > 1)
-               console.log('Plugin Versions');
-          }
         </pre>
       </td>
     </tr>
