@@ -283,91 +283,80 @@ to one of these tables.
 
 * version
 
-  This is a test.
+  This request returns an array of version objects, the first one is from the
+  Horton core and the others are the plugin versions.
 
 ```javascript
           var v = $('table.responsive').horton('version');
           for (var i = 0; i < v.length; i++) {
-             if (i == 0)
-               console.log('Horton Version');
+             if (i == 0) console.log('Horton Version');
              console.log(v[i].name, v[i].version.major+"."+v[i].version.minor);
-             if (i == 0 && v.length > 1)
-               console.log('Plugin Versions');
+             if (i == 0 && v.length > 1) console.log('Plugin Versions');
           }
 ```
 
-<table>
-  <thead>
-    <tr>
-      <th>Request</th>
-      <th>Returns</th>
-      <th>Description</th>
-      <th>Example</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>version</td>
-      <td>
-        An object containing the Horton version object as well as a list of
-        version objects from all the plugins registered.
-      </td>
-      <td>
-        The version return is an object with two members, <code>major</code>
-        and <code>minor</code> associated with integer values. This provides a
-        fast way of version checking. All plugins report th
-      </td>
-      <td>
-        <pre>
-        </pre>
-      </td>
-    </tr>
-    <tr>
-      <td>options</td>
-      <td>
-        The current set of user-specified options from the first table in the
-        jQuery object passed to it.
-      </td>
-      <td>
-        This returns the object containing all the table-specific options that
-        have been set.
-      </td>
-      <td>
-        <pre>
+* options
+
+  This request returns the options currently in use by the first table found
+  by the selector. WARNING: This may change later to return all the options
+  objects from the tables selected.
+
+```javascript
           var opts = $('table.responsive').horton('options');
           $.each(opts.breakpoints,function(k,v){
             console.log(k,opts.breakpoints[k]);
           });
-        </pre>
-      </td>
-    </tr>
-    <tr>
-      <td>insertRows</td>
-      <td>The jQuery object passed to it.</td>
-      <td>
-        Inserts rows at a particular location in the table. If the sorting
-        plugin has been loaded, and any column sorted, the newly inserted rows
-        will automatically be sorted.
-      </td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>replaceRows</td>
-      <td>The jQuery object passed to it.</td>
-      <td>
-      </td>
-    </tr>
-    <tr>
-      <td>numRows</td>
-      <td>The number of rows minus the details rows.</td>
-      <td>
-        This returns the total number of table rows minus any rows showing
-        their hidden content. This allows the programmer to refer to row
-        numbers in a more natural way.
-      </td>
-      <td></td>
-    </tr>
-  </tbody>
-</table>
+```
+
+* numRows
+
+  This returns the number of rows in the table minus the *details* rows (rows
+  showing hidden columns).
+
+* insertRows
+
+  This request inserts rows *__before__* a specific location in the table. To
+  append to a table, provide an insertion point larger than or equal to the
+  number of rows in the table. If the sorting plugin is loaded, the table will
+  re-sort after the new rows have been inserted.
+
+  The insertion location should be chosen as though no *details* rows (rows
+  showing hidden column data) have been added. Horton does not expect you to
+  keep track of the number of *details* rows that have been opened.
+
+```javascript
+          var rows = '<tr><td>Solomon</td><td>Landa</td><td>789 1st St</td><td>landa@solomon.com</td><td>777-888-9999</td><td>No</td></tr>";
+          $('table.responsive').horton('insertRows',2,rows);
+```
+
+* replaceRows
+
+  This request replaces the rows between a start point, and __*up to but not
+  including*__ the end point in the table; the same behavior as the range
+  values in the <code>.slice()</code> function. If only a new set of rows is
+  provided, all existing rows are replaced with the new rows. Only providing
+  one value is the same as an *insertRow* request.
+
+  The replacement range should be chosen as though no *details* rows (rows
+  showing hidden column data) have been added. Horton does not expect you to
+  keep track of the number of *details* rows that have been opened.
+
+```javascript
+          var newRow = '<tr><td>Solomon</td><td>Landa</td><td>789 1st St</td><td>landa@solomon.com</td><td>777-888-9999</td><td>No</td></tr>";
+          //
+          // Replace all rows in the table with newRow.
+          //
+          $('table.responsive').horton('replaceRows',newRow);
+
+          //
+          // Insert newRow before row 5 in the table.
+          //
+          $('table.responsive').horton('replaceRows',5,newRow);
+
+          //
+          // Replace rows 5, 6, and 7 with newRow.
+          //
+          $('table.responsive').horton('replaceRows',5,8,newRow);
+```
 
 **Author:** Mark Leisher <mleisher@gmail.com>
