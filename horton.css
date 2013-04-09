@@ -1,0 +1,30 @@
+.horton {
+    font-family: 'Trebuchet MS' , 'Lucida sans' , Arial;
+    font-size: 10pt;
+    color: #444;
+}
+table.horton > tbody > tr:hover {
+    background: #d0fed0;
+}
+table.horton > thead > tr > th > span.horton-sort-indicator {
+  width: 16px;
+  height: 16px;
+  display: block;
+  float:right;
+  background: url('img/sorting_sprite.png') no-repeat top left;
+}
+table.horton > thead > tr > th.horton-sorted-ascending > span.horton-sort-indicator {
+  background-position: 0 -16px;
+}
+
+table.horton > thead > tr > th.horton-sorted-descending > span.horton-sort-indicator {
+  background-position: 0 -32px;
+}
+table.horton > tbody > tr > td.horton-collapsed {
+    background: url('img/plus.png') no-repeat 5px center;
+    padding-left: 40px;
+}
+table.horton > tbody > tr > td.horton-expanded {
+    background: url('img/minus.png') no-repeat 5px center;
+    padding-left: 40px;
+}

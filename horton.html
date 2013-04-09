@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Horton - jQuery plugin for responsive HTML tables</title>
+  <meta name="viewport" content = "width = device-width, initial-scale = 1.0, minimum-scale = 1.0, maximum-scale = 1.0, user-scalable = no" />
+  <link type='text/css' href='horton.css' rel='stylesheet'>
+  <script type='text/javascript' src='jquery-1.9.1.min.js'></script>
+  <script type='text/javascript' src='jquery.dump.js'></script>
+  <script type='text/javascript' src='horton.js'></script>
+  <script type='text/javascript' src='horton.sortable.js'></script>
+  <script type='text/javascript' src='horton.editable.js'></script>
+  <script type='text/javascript' src='data-generator.js'></script>
+  <script type='text/javascript'>
+    var mdata = {'Jan':31,'Feb':28,'Mar':31,'Apr':30,'May':31,'Jun':30,
+		 'Jul':31,'Aug':31,'Sep':30,'Oct':31,'Nov':30,'Dec':31};
+    function editDate(opts,columnData,$element,$container) {
+	if (opts.editing) {
+	    var i,s,
+	    dp = $element.text().split(' '),
+	    d = parseInt(dp[0]),
+	    n = mdata[dp[1]],
+	    o = "<span class='horton'>";
+
+	    //
+	    // Add the day option menu.
+	    //
+	    o += "<select id='d'>";
+	    for (var i = 1; i <= n; i++) {
+		s = (d == i) ? ' selected' : '';
+		o += "<option"+s+">"+i+"</option>";
+	    }
+	    o += "</select>";
+	    o += "<select id='m'>";
+	    $.each(mdata,function(k,v){
+		s = (k == mdata[1]) ? ' selected' : '';
+		o += "<option"+s+">"+k+"</option>";
+	    });
+	    o += "</select>";
+	    o += "<select id='y'>";
+	    d = parseInt(dp[2]);
+	    for (i = 1960; i <= 1994; i++) {
+		s = (d == i) ? ' selected' : '';
+		o += "<option"+s+">"+i+"</option>";
+	    }
+	    o += "</select>";
+	    $container.html(o);
+	} else {
+	}
+    }
+    function adjustSortOption(event,column,descending) {
+	$('#sorton').val(column);
+	var sel = (descending) ? '#dsc' : '#asc';
+	$(sel).prop('checked',true);
+    }
+    //
+    // Initialize all tables.
+    //
+    $(document).ready(function(){
+	//
+	// Add a binding to the table so that sorts triggered by
+	// clicking on columns will be reflected in the option menu.
+	//
+	$('#demo1').on('horton.sorted',adjustSortOption)
+
+	$('#demo1').horton({testBreakpoint:'phone',
+			    editors:{'simple-date':editDate}
+			   });
+
+	//
+	// Fill in the breakpoints option menu so different widths can be
+	// tested.
+	//
+	var opts = $('#demo1').horton('options');
+	$.each(opts.breakpoints,
+	       function(k,v){
+		   var s = '';
+		   if (opts.testBreakpoint == k)
+		       s = ' selected';
+		   $('#breakpoint').append($('<option'+s+'>').text(k));
+	       });
+    });
+
+    //
+    // Remove the background color used to highlight the inserted rows.
+    //
+    function clearBG() {
+	$('#demo1 tr').filter(function(){
+	    return ($(this).css('background-color') === 'rgb(208, 208, 254)' ||
+		    $(this).css('background-color') === '#d0d0fe');
+	}).css('background-color','');
+    }
+    //
+    // Insert five rows at a random location. If the table is sorted,
+    // the rows will be sorted after they are inserted. The inserted
+    // rows will have a background color added and then removed after
+    // 3 seconds.
+    //
+    function insertRows() {
+	var nr = $('#demo1').horton('numRows'),
+	where = Math.floor(Math.random()*nr),
+	$rows = $(window.generateRows(5,0,true)).css('background','#d0d0fe');
+
+	$('#demo1').horton('replaceRows',where,$rows);
+	setTimeout(clearBG,3000);
+    }
+    function replaceAll() {
+	$('#demo1').horton('replaceRows',window.generateRows(20,0,true));
+    }
+    function chooseSort(sel) {
+	var h = $(sel).val(),
+	des = $('#dsc').is(':checked');
+	if (h == 'None')
+	    return;
+	$('#demo1').horton('sort',h,des);
+    }
+    function changeBreakpoint(sel) {
+	var b = $(sel).val();
+	if (b == 'None')
+	    b = null;
+	$('#demo1').horton({testBreakpoint: b});
+    }
+  </script>
+</head>
+<body>
+  <div>
+    <fieldset style='display: inline-block'>
+      <legend>Tests</legend>
+      <input type='button' value='Insert 5 Rows (random location)' onclick='javascript:insertRows();' /> <br />
+      <input type='button' value='Replace All Rows' onclick='javascript:replaceAll();' /> <br />
+      <div class='horton'>
+	Set breakpoint <select id='breakpoint' onchange='javascript:changeBreakpoint(this);'>
+	  <option>None</option>
+	</select><br />
+	Sort by
+	<select id='sorton' onchange='javascript:chooseSort(this);'>
+	  <option>None</option>
+	  <option>First Name</option>
+	  <option>Last Name</option>
+	  <option>Job Title</option>
+	  <option>DOB</option>
+	  <option>Status</option>
+	</select>
+	<input type='radio' name='sortdir' id='asc' checked />Ascending
+	<input type='radio' name='sortdir' id='dsc' />Descending
+      </div>
+    </fieldset>
+  </div>
+  <p />
+  <table id='demo1' class="horton" frame='border' rules='all'>
+    <thead>
+      <tr>
+        <th data-expander="true" data-sort-with='Last Name'>
+          First Name
+        </th>
+        <th data-sort-with='First Name' data-sort-initial='true'>
+          Last Name
+        </th>
+        <th data-hide="phone,tablet" data-sort-with='Last Name,First Name'>
+          Job Title
+        </th>
+	<th colspan='2' data-hide='phone,tablet' data-sort-key='1,0'>
+	Contact
+	</th>
+        <th data-hide="phone,tablet" data-editor='simple-date'>
+          DOB
+        </th>
+        <th data-hide="phone">
+          Status
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <script type="text/javascript">
+        window.generateRows(20);
+      </script>
+    </tbody>
+  </table>
+</body>
+</html>
