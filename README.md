@@ -553,6 +553,8 @@ not.
 ```javascript
            $('table.responsive').on('horton.sorted',
                       function(event,columnName,descending){
+                         console.log('Sorted column '+columnName+' '+
+                                     (descending)?'descending':'ascending');
                       });
 ```
 
