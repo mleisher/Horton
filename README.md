@@ -5,10 +5,9 @@ While looking for *responsive* (element size dynamically adapts to viewport
 size) table plugins for jQuery, I came across Chris Coyier's survey
 <http://css-tricks.com/responsive-data-table-roundup/>. After looking through
 all the approaches presented, the one that seemed the simplest and most
-effective was FooTable. After contributing one minor enhancement (multi-column
-sorting), I decided to tweak the core of FooTable a bit for my own uses and as
-happens so often with these things, it got a little out of hand and Horton was
-born.
+effective was FooTable. After playing around with it for a while, I decided to
+tweak the core of FooTable a bit for my own uses and as happens so often with
+these things, it got a little out of hand and Horton was born.
 
 _**Horton**_ is a jQuery plugin for HTML tables, heavily influenced by
 FooTable <http://themergency.com/footable/>, but takes a slightly different
@@ -366,4 +365,116 @@ to one of these tables.
 
 ##Plugins
 
+Current list of Horton plugins:
+
+###Horton Sortable Plugin
+
+  This plugin provides column sorting with the ability to make columns sort
+  together in a particular order. For example, when you sort by a last name,
+  it is nice if the associated first names were sorted as well.
+
+####Sorting attributes
+
+<table rules='all' frame='border'>
+  <thead>
+    <tr>
+      <th>Attribute Name</th><th>Type</th><th>Context<th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>data-sort-ignore</td>
+      <td>boolean</td>
+      <td>&lt;TH&gt;</td>
+      <td>
+        This tells the sorting plugin to ignore this column while sorting.
+      </td>
+    </tr>
+    <tr>
+      <td>data-sort-key</td>
+      <td>string</td>
+      <td>
+        &lt;TH&gt; - in table header cells with colspan > 1.<br />
+        &lt;TD&gt; - in table body cells.
+      </td>
+      <td>
+        If a &lt;TH&gt; element has a colspan > 1, then this attribute informs
+        the sorting plugin which table body columns it should use to create a
+        sort key and in what order. For example, <code>&lt;th colspan='3'
+        data-sort-key='1,0'&gt;Header&lt;/th&gt;</code> tells the sorting
+        plugin that this header spans 3 columns in the table body, but to use
+        body columns 1 and then 0 to sort this column, ignoring column 2.
+        <p />
+        In the table body, the default sort key of a cell is the text contents
+        of the cell. This overrides that sort key with something more
+        appropriate. For example, <code>&lt;td
+        data-sort-key='1365526937'&gt;9 April 2013&lt;/td&gt;</code> will sort
+        by the value in <code>data-sort-key</code> rather than the
+        string <code>9 April 2013</code>.
+      </td>
+    </tr>
+    <tr>
+      <td>data-sort-with</td>
+      <td>string</td>
+      <td>
+        &lt;TH&gt;
+      </td>
+      <td>
+        This attribute tells the sorting plugin that this column should be
+        sorted with one or more other columns. For example, <code>&ltth
+        data-sort-with='First Name,Address'&gt;Last Name&lt;/th&gt;</code>
+        will cause the <code>Last Name</code> column to be sorted first,
+        followed by the <code>First Name</code> column, and then
+        the <code>Address</code> column.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+####Requests
+
+The sorting plugin only provides one request.
+
+* sort
+
+  This request can be used to programatically sort columns in ascending or
+  descending order, obeying the <code>data-sort-*</code> attributes applied to
+  the table cells.
+
+```javascript
+          //
+          // Tell the sorting plugin to sort by the Address column in
+          // descending order.
+          //
+          $('table.responsive').horton('sort','Address',true);
+
+          //
+          // Tell the sorting plugin to sort by the First Name column in
+          // ascending order.
+          //
+          $('table.responsive').horton('sort','First Name',false);
+```
+
+###Horton Editable Plugin
+
+This plugin exists primarily to demonstrate how to write a plugin to edit the
+table cells in place. It isn't very sophisticated, but should be guidance
+enough to implement plugins and custom editors.
+
+This doesn't really need to be a plugin, the <code>showDetails</code>
+and <code>hideDetails</code> functions of the Horton core can be replaced at
+initialization time.
+
+####Editing attributes
+
+There are no special attributes for this plugin.
+
+##Contributors
+
 **Author:** Mark Leisher <mleisher@gmail.com>
+
+##Thanks
+
+I would like to thank Steve Usher and Brad Vicent for their great work on
+FooTable, without which I never would have wasted several weeks creating
+Horton.
