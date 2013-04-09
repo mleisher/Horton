@@ -558,6 +558,8 @@ not.
                       });
 ```
 
+* * *
+
 ###Horton Editable Plugin
 
 This plugin exists primarily to demonstrate how to write a plugin. It isn't
