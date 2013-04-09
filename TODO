@@ -2,7 +2,8 @@ TODO List
 
 Horton 0.1
 ----------
-1. Add a filter plugin.
-2. Add a pager plugin.
-3. Add automatic header grouping for multiline headers (for hiding/showing
-columns)
+1. Deal with rowspan gracefully.
+2. Add automatic header grouping for multiline headers (for hiding/showing
+columns).
+3. Add a filter plugin.
+4. Add a pager plugin.

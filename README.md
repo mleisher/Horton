@@ -250,6 +250,16 @@ changes the test breakpoint dynamically.
       <td>
         This is the function called to show hidden columns in a row added
         beneath the row clicked.
+        <p />
+        <code>function showDetails(options,visible,hidden,container)</code>
+        <br />
+        <span style='margin-left: 10px'>
+        <code>options</code> are the current table options.<br />
+        <code>visible</code> an array of visible cells.<br />
+        <code>hidden</code> an array of hidden cells.<br />
+        <code>container</code> the single &lt;TD&gt; element in the row below
+  the one clicked.
+        </span>
       </td>
     </tr>
     <tr>
