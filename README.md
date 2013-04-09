@@ -49,7 +49,7 @@ single column with column names and the value(s) indented a bit below them.
 Much of the functionality of Horton can be seen in the demo located at
 http://www.math.nmsu.edu/~mleisher/Software/javascript/Horton/.
 
-###Basic element notation.
+###Basic element notation
 
 All of these attributes occur in the `<TH>` elements inside a `<THEAD>` of an
 HTML table.
@@ -327,7 +327,8 @@ to one of these tables.
 * numRows
 
   This returns the number of rows in the table minus the *details* rows (rows
-  showing hidden columns).
+  showing hidden columns). The number of data rows is more useful than keeping
+  track of rows added to display hidden columns.
 
 * insertRows
 
@@ -348,8 +349,8 @@ to one of these tables.
 * replaceRows
 
   This request replaces the rows between a start point, and __*up to but not
-  including*__ the end point in the table; the same behavior as the range
-  values in the <code>.slice()</code> function. If only a new set of rows is
+  including*__ the end point in the table; the same meaning as the range
+  expected by the <code>.slice()</code> function. If only a new set of rows is
   provided, all existing rows are replaced with the new rows. Only providing
   one value is the same as an *insertRow* request.
 
@@ -382,9 +383,10 @@ The core of Horton only triggers one custom event at the moment:
 <code>insertRows</code> and <code>replaceRows</code>. No data is passed to the
 event handler.
 
-##Plugins
+The sorting plugin uses this event to re-sort the table after the rows have
+changed.
 
-Current list of Horton plugins:
+##Plugins
 
 ###Horton Sortable Plugin
 
@@ -419,8 +421,7 @@ Current list of Horton plugins:
       <td>data-sort-key</td>
       <td>string</td>
       <td>
-        &lt;TH&gt; - in table header cells with colspan > 1.<br />
-        &lt;TD&gt; - in table body cells.
+        &lt;TH&gt;<br />&lt;TD&gt;
       </td>
       <td>
         If a &lt;TH&gt; element has a colspan > 1, then this attribute informs
@@ -487,20 +488,74 @@ This plugin only triggers one custom event at the moment,
 header and passing the header name and whether the sort was descending or
 not.
 
+```javascript
+           $('table.responsive').on('horton.sorted',
+                      function(event,columnName,descending){
+                      });
+```
 
 ###Horton Editable Plugin
 
-This plugin exists primarily to demonstrate how to write a plugin to edit the
-table cells in place. It isn't very sophisticated, but should be guidance
-enough to implement plugins and custom editors.
+This plugin exists primarily to demonstrate how to write a plugin. It isn't
+very sophisticated, but should be guidance enough to implement plugins and
+custom editors. It implements editing the table cells in place, visible and
+hidden.
 
 This doesn't really need to be a plugin, the <code>showDetails</code>
 and <code>hideDetails</code> functions of the Horton core can be replaced at
 initialization time.
 
+####Editing options
+
+<table rules='all' frame='border'>
+  <thead>
+    <tr>
+      <th>
+        Name
+      </th>
+      <th>
+        Value
+      </th>
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>editors</td>
+      <td>{'text': default text edit function}</td>
+      <td>
+        This is an object that maps editor names to functions. Some cells need a
+        more sophisticated editor than a simple text field.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 ####Editing attributes
 
-There are no special attributes for this plugin.
+<table rules='all' frame='border'>
+  <thead>
+    <tr>
+      <th>Attribute Name</th><th>Type</th><th>Context<th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>data-editor</td>
+      <td>string</td>
+      <td>&lt;TH&gt;<br />&lt;TD&gt;</td>
+      <td>
+        When applied to a &lt;TH&gt; element in the table header, this names
+        the editor to use for all cells in this column.
+        <p />
+        When applied to a &lt;TD&gt; element in the table body, this overrides
+        whatever editor was specified in the table header for this column.
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ##Contributors
 
