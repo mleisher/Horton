@@ -363,6 +363,13 @@ to one of these tables.
           $('table.responsive').horton('replaceRows',5,8,newRow);
 ```
 
+###Events
+
+The core of Horton only triggers one custom event at the moment:
+<code>horton.rows.modified</code> whenever rows are changed with requests
+<code>insertRows</code> and <code>replaceRows</code>. No data is passed to the
+event handler.
+
 ##Plugins
 
 Current list of Horton plugins:
@@ -454,6 +461,14 @@ The sorting plugin only provides one request.
           //
           $('table.responsive').horton('sort','First Name',false);
 ```
+
+####Events
+
+This plugin only triggers one custom event at the moment,
+<code>horton.sorted</code>, triggered after sorting is done by clicking on a
+header and passing the header name and whether the sort was descending or
+not.
+
 
 ###Horton Editable Plugin
 
