@@ -392,6 +392,12 @@ Current list of Horton plugins:
   together in a particular order. For example, when you sort by a last name,
   it is nice if the associated first names were sorted as well.
 
+  The sort key comparison is done with Jim Palmer's Natural Sort Javascript
+  routine
+  (https://github.com/overset/javascript-natural-sort/blob/master/naturalSort.js). This
+  means no special handling of numbers versus strings is needed to get things
+  to sort "naturally."
+
 ####Sorting attributes
 
 <table rules='all' frame='border'>
