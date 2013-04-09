@@ -1,0 +1,8 @@
+TODO List
+
+Horton 0.1
+----------
+1. Add a filter plugin.
+2. Add a pager plugin.
+3. Add automatic header grouping for multiline headers (for hiding/showing
+columns)
