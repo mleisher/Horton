@@ -41,9 +41,9 @@ The heart of the FooTable notation approach is the idea of
 *breakpoints*. These are named widths that set a threshold. Once the width is
 below a breakpoint, specified columns get hidden.
 
-Clicking on a row will display the hidden columns in a row below the one
-clicked. The default display function will format them into a single column
-with column names and the value(s) indented a bit below them.
+Clicking on a row will display the **details** (the hidden columns) in a row
+below the one clicked. The default display function will format them into a
+single column with column names and the value(s) indented a bit below them.
 
 ##Basic element notation.
 
@@ -215,7 +215,7 @@ changes the test breakpoint dynamically.
         breakpoints
       </td>
       <td>
-        {'phone': 480, 'tablet': 1024}
+        {'phone': 480,<br />'tablet': 1024}
       </td>
       <td>
         This is an object that maps a width name to a width value in
@@ -265,7 +265,7 @@ changes the test breakpoint dynamically.
         classes
       </td>
       <td>
-        {'collapsed': 'horton-collapsed', 'expanded': 'horton-expanded'}
+        {'collapsed': 'horton-collapsed',<br />'expanded': 'horton-expanded'}
       </td>
       <td>
         These are the two classes that indicate whether a row is showing the
@@ -275,5 +275,92 @@ changes the test breakpoint dynamically.
   </tbody>
 </table>
 
+##Requests
+
+Since it is very useful to be able to make changes to and get information from
+tables initialized with Horton, there are several requests that can be passed
+to one of these tables.
+
+<table>
+  <thead>
+    <tr>
+      <th>Request</th>
+      <th>Returns</th>
+      <th>Description</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>version</td>
+      <td>
+        An object containing the Horton version object as well as a list of
+        version objects from all the plugins registered.
+      </td>
+      <td>
+        The version return is an object with two members, <code>major</code>
+        and <code>minor</code> associated with integer values. This provides a
+        fast way of version checking. All plugins report th
+      </td>
+      <td>
+        <pre>
+          var v = $('table.responsive').horton('version');
+          for (var i = 0; i < v.length; i++) {
+             if (i == 0)
+               console.log('Horton Version');
+             console.log(v[i].name, v[i].version.major+"."+v[i].version.minor);
+             if (i == 0 && v.length > 1)
+               console.log('Plugin Versions');
+          }
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>options</td>
+      <td>
+        The current set of user-specified options from the first table in the
+        jQuery object passed to it.
+      </td>
+      <td>
+        This returns the object containing all the table-specific options that
+        have been set.
+      </td>
+      <td>
+        <pre>
+          var opts = $('table.responsive').horton('options');
+          $.each(opts.breakpoints,function(k,v){
+            console.log(k,opts.breakpoints[k]);
+          });
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>insertRows</td>
+      <td>The jQuery object passed to it.</td>
+      <td>
+        Inserts rows at a particular location in the table. If the sorting
+        plugin has been loaded, and any column sorted, the newly inserted rows
+        will automatically be sorted.
+      </td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>replaceRows</td>
+      <td>The jQuery object passed to it.</td>
+      <td>
+      </td>
+    </tr>
+    <tr>
+      <td>numRows</td>
+      <td>The number of rows minus the details rows.</td>
+      <td>
+        This returns the total number of table rows minus any rows showing
+        their hidden content. This allows the programmer to refer to row
+        numbers in a more natural way.
+      </td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
 
 **Author:** Mark Leisher <mleisher@gmail.com>
