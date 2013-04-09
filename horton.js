@@ -499,7 +499,7 @@
 		fiddleRows(opts,$table,$nr);
 		$table.find('>tbody:first').append($nr);
 	    }
-	    $table.trigger('horton');
+	    $table.trigger('horton.rows.modified');
 	    return;
 	}
 
