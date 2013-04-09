@@ -45,7 +45,12 @@ Clicking on a row will display the **details** (the hidden columns) in a row
 below the one clicked. The default display function will format them into a
 single column with column names and the value(s) indented a bit below them.
 
-##Basic element notation.
+##Demo
+
+Much of the functionality of Horton can be seen in the demo located at
+http://www.math.nmsu.edu/~mleisher/Software/javascript/Horton/.
+
+###Basic element notation.
 
 All of these attributes occur in the `<TH>` elements inside a `<THEAD>` of an
 HTML table.
@@ -94,7 +99,7 @@ HTML table.
   </tbody>
 </table>
 
-##Trivial table example
+###Trivial table example
 
 ```html
 <html>
@@ -159,7 +164,7 @@ HTML table.
 </html>
 ```
 
-###Explanation of trivial table
+####Explanation of trivial table
 
 The Javascript code in the <code>&lt;script /&gt;</code> tag above,
 initializes all tables with class *responsive* with new breakpoint (lcd) and
@@ -175,7 +180,7 @@ The <code>data-hide</code> attributes tell Horton when to hide those columns.
 The <code>data-name</code> attribute changes the name of the column. This name
 change is used when the row is clicked to show the hidden columns.
 
-##Initialization
+###Initialization
 
 To initialize tables:
 
@@ -189,7 +194,7 @@ $(document).ready(function(){
 });
 ```
 
-##Default options
+###Default options
 
 These are all the default options that can be set at any time during the life
 of the table. That means, for example, that you could have a button that
@@ -275,7 +280,7 @@ changes the test breakpoint dynamically.
   </tbody>
 </table>
 
-##Requests
+###Requests
 
 Since it is very useful to be able to make changes to and get information from
 tables initialized with Horton, there are several requests that can be passed
@@ -358,5 +363,7 @@ to one of these tables.
           //
           $('table.responsive').horton('replaceRows',5,8,newRow);
 ```
+
+##Plugins
 
 **Author:** Mark Leisher <mleisher@gmail.com>
