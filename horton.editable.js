@@ -117,6 +117,10 @@
 	//
 	showDetails: editRowStart,
 	hideDetails: editRowEnd
+        //
+        // Internal. Whether editing is occurring.
+        //
+        editing: false,
     };
 
     w.horton.plugins.register(w,editable,defaults);
