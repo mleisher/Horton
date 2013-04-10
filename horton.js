@@ -361,6 +361,12 @@
 	    //
 	    if (opts.showDetails)
 		opts.showDetails(opts,visible,hidden,container);
+	    else
+		//
+		// No details function was provided, so use the
+		// default.
+		//
+		showDetails(opts,visible,hidden,container);
 	    //
 	    // Show the row.
 	    //
