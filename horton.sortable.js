@@ -145,6 +145,24 @@
                                    opts.classes['sort-indicator']+"'></span>");
             }
         });
+
+	//
+	// Either register or remove a handler that gets called when
+	// the table rows are modified. This causes the rows to be
+	// sorted according to the existing sorted state.
+	//
+	if (opts.sort)
+	    $table.on('horton.rows.modified',reSort);
+	else {
+	    $table.off('horton.rows.modified');
+	    return;
+	}
+
+	//
+	// If sorting is disabled, simply return.
+	//
+	if (!opts.sort)
+	    return;
         //
         // Process the headers.
         //
@@ -242,34 +260,33 @@
         });
 
 	//
-	// If a column was specified to be sorted at table
-	// initialization, handle it here.
+	// If one of the columns has been sorted, then this forces it
+	// to re-sort. If the re-sort fails, then sort on the
+	// data-sort-initial column.
 	//
-	$table.find('>thead:first>tr:last-child>th[data-sort-initial],>thead:first>tr:last-child>td[data-sort-initial]').trigger('click.horton').removeAttr('data-sort-initial');
-
-	//
-	// Finally, register a handler that gets called when the table
-	// rows are modified. This causes the rows to be sorted
-	// according to the existing sorted state.
-	//
-	$table.on('horton.rows.modified',reSort);
+	if (!reSort($table))
+	    //
+	    // If a column was specified to be sorted at table
+	    // initialization, handle it here.
+	    //
+	    $table.find('>thead:first>tr:last-child>th[data-sort-initial],>thead:first>tr:last-child>td[data-sort-initial]').trigger('click.horton')
     }
 
     //
     // A function that's called when the table rows are modified.
     //
-    function reSort() {
-	var $table = $(this),
+    function reSort(tbl) {
+	var $table = tbl || $(this),
 	opts = $table.data('horton'),
 	asc = '>thead:first>tr:last-child>th.'+opts.classes['sorted-ascending']+',>thead:first>tr:last-child>td.'+opts.classes['sorted-ascending'],
-	dsc = '>thead:first>tr:last-child>th.'+opts.classes['sorted-descending']+',>thead:first>tr:last-child>td.'+opts.classes['sorted-descending'];
-	var $th = $table.find(asc) || $table.find(dsc);
+	dsc = '>thead:first>tr:last-child>th.'+opts.classes['sorted-descending']+',>thead:first>tr:last-child>td.'+opts.classes['sorted-descending'],
+	$th = $table.find(asc) || $table.find(dsc);
 
 	//
 	// No column has been sorted. Simply return.
 	//
 	if (!$th || $th.index() < 0)
-	    return;
+	    return false;
 
 	var rows = getRows($table,opts.columnData[$th.index()]);
 	if ($th.hasClass(opts.classes['sorted-ascending']))
@@ -285,6 +302,7 @@
             if (rows[i].detail)
                 $tbody.append(rows[i].detail);
         }
+	return true;
     }
 
     //
