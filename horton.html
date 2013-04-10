@@ -118,6 +118,19 @@
 	    b = null;
 	$('#demo1').horton({testBreakpoint: b});
     }
+    function sortingToggle() {
+	var opts = $('#demo1').horton('options');
+	if (opts.sort) {
+	    $('#stoggle').val('Turn Sorting On');
+	    $('#sorton').attr('disabled',true);
+	    $('[name=sortdir]').attr('disabled',true);
+	} else {
+	    $('#stoggle').val('Turn Sorting Off');
+	    $('#sorton').removeAttr('disabled');
+	    $('[name=sortdir]').removeAttr('disabled');
+	}
+	$('#demo1').horton({sort:!opts.sort});
+    }
   </script>
 </head>
 <body>
@@ -130,6 +143,7 @@
 	Set breakpoint <select id='breakpoint' onchange='javascript:changeBreakpoint(this);'>
 	  <option>None</option>
 	</select><br />
+	<input id='stoggle' type='button' value='Turn Sorting Off' onclick='javascript:sortingToggle();'><br />
 	Sort by
 	<select id='sorton' onchange='javascript:chooseSort(this);'>
 	  <option>None</option>
