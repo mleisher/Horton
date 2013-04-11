@@ -661,7 +661,7 @@
 	    init       : hortonInit,     // Initialize.
 	    version    : getVersion,
 	    options    : getOptions,
-	    insertRows : insertRows,
+	    insertRows : replaceRows,
 	    replaceRows: replaceRows,
 	    numRows    : numRows
 	};
