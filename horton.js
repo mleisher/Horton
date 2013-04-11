@@ -135,9 +135,6 @@
 
 	opts.expander = on;
     }
-    function hortonShowTable(e,$table) {
-	console.log($table);
-    }
     //
     // Initialize the tables.
     //
@@ -155,12 +152,6 @@
 	    else
 		opts = $.extend(true,{},w.horton.options,options);
 	    $table.data('horton',opts);
-
-	    //
-	    // Add a handler to the table to deal with show events so
-	    // hidden cells stay hidden.
-	    //
-	    //$table.off('show.horton').on('show.horton',$table,hortonShowTable);
 
 	    //
 	    // Clear the arrays that will be built up.
