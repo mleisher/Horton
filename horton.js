@@ -27,6 +27,7 @@
 	$tbody = $table.find('tbody:first'),
 	opts = $table.data('horton');
 
+	var id = $table.attr('id');
 	opts.timer = null;
 
 	//
@@ -47,7 +48,7 @@
 	// Show columns that should be visible.
 	//
 	for (i = 0; i < show.length; i++) {
-	    var expr = ">thead:first>tr:last-child>th[data-hide*='"+show[i]+"']:hidden,>thead:first>tr:last-child>td[data-hide*='"+show[i]+"']:hidden";
+	    var expr = ">thead:first>tr:last-child>th[data-hide*='"+show[i]+"'],>thead:first>tr:last-child>td[data-hide*='"+show[i]+"']";
 	    $table.find(expr).each(function(){
 		var s, e, $th = $(this),
 		span = opts.columnData[$th.index()].span;
@@ -70,7 +71,7 @@
 	// Hide columns that should not be visible.
 	//
 	for (i = 0; i < hide.length; i++) {
-	    var expr = ">thead:first>tr:last-child>th[data-hide*='"+hide[i]+"']:visible,>thead:first>tr:last-child>td[data-hide*='"+hide[i]+"']:visible";
+	    var expr = ">thead:first>tr:last-child>th[data-hide*='"+hide[i]+"'],>thead:first>tr:last-child>td[data-hide*='"+hide[i]+"']";
 	    $table.find(expr).each(function(){
 		var s, e, $th = $(this),
 		span = opts.columnData[$th.index()].span;
@@ -124,7 +125,6 @@
     function toggleExpander($table,on) {
 	var opts = $table.data('horton');
 
-	console.log($table.attr('id'),on);
 	//
 	// All the details rows are collapsed at this point.
 	//
@@ -134,6 +134,9 @@
 	    $table.find('>tbody:first>tr>td:nth-child('+opts.expanderColumn+')').removeClass(opts.classes.collapsed);
 
 	opts.expander = on;
+    }
+    function hortonShowTable(e,$table) {
+	console.log($table);
     }
     //
     // Initialize the tables.
@@ -152,6 +155,12 @@
 	    else
 		opts = $.extend(true,{},w.horton.options,options);
 	    $table.data('horton',opts);
+
+	    //
+	    // Add a handler to the table to deal with show events so
+	    // hidden cells stay hidden.
+	    //
+	    //$table.off('show.horton').on('show.horton',$table,hortonShowTable);
 
 	    //
 	    // Clear the arrays that will be built up.
