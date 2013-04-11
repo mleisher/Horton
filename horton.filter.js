@@ -24,7 +24,8 @@
     function hortonFilter(term) {
         var $table = $(this),
         opts = $table.data('horton'),
-        term = term || $(opts.filterSelector).val();
+        term = term || $(opts.filterSelector).val(),
+	found = false;
 
         opts.filterTimer = null;
 
@@ -34,7 +35,7 @@
         //
         if (term.length < opts.minFilterKeys) {
             showRows($table);
-            return;
+            return found;
         }
 
         //
@@ -55,11 +56,13 @@
                     $rows.hide();
                     $table.find('>tbody:first>tr.horton-details').hide();
                 }
+		found = true;
                 $r.show();
                 if ($r.hasClass(opts.classes.expanded))
                     $r.next().show();
             }
         });
+	return found;
     }
 
     function filterKey(event) {
