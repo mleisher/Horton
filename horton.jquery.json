@@ -1,27 +1,35 @@
 {
     "name": "horton",
     "title": "Horton",
-    "description": "jQuery plugin to make tables responsive to viewport size,
-    sortable, filterable, and editable in-place.",
+    "description": "jQuery plugin to make tables responsive to viewport size, sortable, filterable, and editable in-place.",
     "keywords": [
         "responsive",
         "table"
     ],
-    "version": "0.1.4",
+    "version": "0.1.5",
     "author": {
         "name": "Mark Leisher",
         "email": "mleisher@gmail.com",
-        "url": "http://www.math.nmsu.edu/~mleisher/Software"
+        "url": "https://github.com/mleisher/Horton"
     },
+    "maintainers": [
+        {
+            "name": "Mark Leisher",
+            "url": "https://github.com/mleisher"
+        }
+    ],
     "licenses": [
         {
             "type": "MIT",
-            "url": "http://opensource.org/licenses/MIT"
+            "url": "https://github.com/mleisher/Horton/LICENSE"
         }
     ],
+    "download": "https://github.com/mleisher/Horton/archive/master.zip",
+    "bugs": "https://github.com/mleisher/Horton/issues",
+    "demo": "http://www.math.nmsu.edu/~mleisher/Software/javascript/Horton",
+    "docs": "https://github.com/mleisher/Horton",
     "dependencies": {
         "jquery": ">=1.8"
-    },
-    "demo": "http://www.math.nmsu.edu/~mleisher/Software/javascript/Horton"
+    }
 }
 
