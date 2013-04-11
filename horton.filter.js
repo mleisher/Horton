@@ -21,15 +21,15 @@
     //
     // Perform the search.
     //
-    function hortonFilter() {
+    function hortonFilter(term) {
         var $table = $(this),
-        opts = $table.data('horton');
+        opts = $table.data('horton'),
+        term = term || $(opts.filterSelector).val();
 
         opts.filterTimer = null;
-        term = $(opts.filterSelector).val();
 
         //
-        // If we don't have enough keystrokes, make shure everything is
+        // If we don't have enough keystrokes, make sure everything is
         // visible.
         //
         if (term.length < opts.minFilterKeys) {
@@ -42,15 +42,18 @@
         //
         var re = new RegExp(term.replace(/\s+/g,'|')),
         hidden = false,
-        $rows = $table.find('>tbody:first>tr:not(.horton-details)').each(function(){
+        $rows = $table.find('>tbody:first>tr:not(.horton-details)');
+
+	$rows.each(function(){
             var $r = $(this);
-            if ($r.find('td').text().search(re)) {
+            if ($r.find('td').text().search(re) > -1) {
                 if (!hidden) {
                     //
                     // Only hide everything if at least one match is found.
                     //
                     hidden = true;
                     $rows.hide();
+                    $table.find('>tbody:first>tr.horton-details').hide();
                 }
                 $r.show();
                 if ($r.hasClass(opts.classes.expanded))
@@ -59,7 +62,7 @@
         });
     }
 
-    function getKey(event) {
+    function filterKey(event) {
         var $table = event.data,
         opts = $table.data('horton');
 
@@ -68,7 +71,7 @@
         // search is done.
         //
         if (opts.filterTimer)
-            clearTimout(opts.filterTimer);
+            clearTimeout(opts.filterTimer);
 
         //
         // Check to see if the filter is being cancelled with the ESC key.
