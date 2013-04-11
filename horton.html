@@ -7,10 +7,9 @@
   <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js'></script>
   <script type='text/javascript' src='horton.js'></script>
   <script type='text/javascript' src='horton.sortable.js'></script>
-  <script type='text/javascript' src='horton.editable.js'></script>
+<!--  <script type='text/javascript' src='horton.editable.js'></script> -->
   <script type='text/javascript' src='horton.filter.js'></script>
   <script type='text/javascript' src='data-generator.js'></script>
-  <script type='text/javascript' src='jquery.dump.js'></script>
   <script type='text/javascript'>
     var mdata = {'Jan':31,'Feb':28,'Mar':31,'Apr':30,'May':31,'Jun':30,
 		 'Jul':31,'Aug':31,'Sep':30,'Oct':31,'Nov':30,'Dec':31};
@@ -133,6 +132,15 @@
 	}
 	$('#demo1').horton({sort:!opts.sort});
     }
+    function clearFilter() {
+	$('#demo1').horton('filter','');
+    }
+    function filterTest() {
+        if (!$('#demo1').horton('filter','Ar'))
+	    alert('No rows containing the string "Ar" was found.');
+	else
+	    setTimeout(clearFilter,3000);
+    }
   </script>
 </head>
 <body>
@@ -161,6 +169,7 @@
     </fieldset>
   </div>
   <p />
+  <input type='button' value='Show Rows With "Ar"' onclick='javascript:filterTest();'><br />
   Filter: <input type='text' class='horton-filter'><br />
   <table id='demo1' class="horton" frame='border' rules='all'>
     <thead>
