@@ -152,7 +152,11 @@
 	// sorted according to the existing sorted state.
 	//
 	if (opts.sort)
-	    $table.on('horton.rows.modified',reSort);
+            //
+            // Make sure only one handler gets added and we don't create
+            // a whole stack.
+            //
+	    $table.off('horton.rows.modified').on('horton.rows.modified',reSort);
 	else {
 	    $table.off('horton.rows.modified');
 	    return;
@@ -264,7 +268,7 @@
 	// to re-sort. If the re-sort fails, then sort on the
 	// data-sort-initial column.
 	//
-	if (!reSort($table))
+	if (!reSort(null,$table))
 	    //
 	    // If a column was specified to be sorted at table
 	    // initialization, handle it here.
@@ -275,7 +279,7 @@
     //
     // A function that's called when the table rows are modified.
     //
-    function reSort(tbl) {
+    function reSort(event,tbl) {
 	var $table = tbl || $(this),
 	opts = $table.data('horton'),
 	asc = '>thead:first>tr:last-child>th.'+opts.classes['sorted-ascending']+',>thead:first>tr:last-child>td.'+opts.classes['sorted-ascending'],
