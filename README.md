@@ -13,6 +13,10 @@ _**Horton**_ is a jQuery plugin for HTML tables, heavily influenced by
 FooTable <http://themergency.com/footable/>, but takes a slightly different
 direction.
 
+**IMPORTANT:** Since this is primarily for my own internal use, no further
+  development is expected, but bug fixes will be taken care of as they come
+  in. Others are free to contribute or take off with it.
+
 ##The general problem
 
 When the width of a table changes due to viewport size changes, two things are
@@ -557,6 +561,111 @@ not.
                                      (descending)?'descending':'ascending');
                       });
 ```
+
+* * *
+
+###Horton Filter Plugin
+
+This plugin collects text from an input element and uses it to search the text
+of the table rows. Multiple search terms can be used by putting a space in
+between each term. The plugin creates a regular expression using alternation
+to search with (i.e. "Ar Bo 45" gets turned into the regular expression
+"Ar|Bo|45").
+
+To clear the value in the input element, press the ESC (Escape) key.
+
+####Filter Attributes
+
+None.
+
+####Filter Options
+
+<table rules='all' frame='border'>
+  <thead>
+    <tr>
+      <th>
+        Name
+      </th>
+      <th>
+        Value
+      </th>
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        filter
+      </td>
+      <td>
+        true
+      </td>
+      <td>
+        This indicates whether filtering is available or not.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        filterSelector
+      </td>
+      <td>
+        .horton-filter
+      </td>
+      <td>
+        The string used to select the input element that provides the value to
+        search for.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        filterDelay
+      </td>
+      <td>
+        300
+      </td>
+      <td>
+        After this amount of time following the last keystroke, the search
+        will take place.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        minFilterKeys
+      </td>
+      <td>
+        2
+      </td>
+      <td>
+        The minimum number of letters before a search can take place.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+####Filter Requests
+
+This plugin only provides one request.
+
+* filter
+
+  This request can be used to programatically filter rows in the table.
+
+```javascript
+          //
+          // Show only rows containing the strings 'Ar' or 'Bo'.
+          //
+          $('table.responsive').horton('filter','Ar Bo');
+          //
+          // Clear the last filter request.
+          //
+          $('table.responsive').horton('filter','');
+```
+
+####Filter Events
+
+None.
 
 * * *
 
