@@ -1,12 +1,13 @@
 {
     "name": "horton",
     "title": "Horton",
-    "description": "jQuery plugin to make tables responsive to viewport size, sortable, and editable in-place.",
+    "description": "jQuery plugin to make tables responsive to viewport size,
+    sortable, filterable, and editable in-place.",
     "keywords": [
         "responsive",
         "table"
     ],
-    "version": "0.1.2",
+    "version": "0.1.4",
     "author": {
         "name": "Mark Leisher",
         "email": "mleisher@gmail.com",
