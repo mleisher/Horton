@@ -92,21 +92,11 @@
 	}
 
 	//
-	// Since this function can be called at any time after the
-	// initial configuration of a table, manually check to see if
-	// there are hidden columns that are not marked as always
-	// hidden.
+	// If some columns are still hidden, reopen the details rows
+	// that were showing before the viewport width change.
 	//
-	var hh = $.grep($table.find('>thead:first>tr:last-child> th:hidden,>thead:first>tr:last-child>td:hidden'),
-			function(e,i){return $(e).data('hide') != 'always';});
-	if ($(hh).size() > 0) {
-	    //
-	    // Reopen details rows that were showing before the
-	    // viewport width changed.
-	    //
-	    if (reopen) $(reopen).trigger('click.horton');
-	    needExpander = true;
-	}
+	if (needExpander && reopen)
+	    $(reopen).trigger('click.horton');
 
 	//
 	// If a test breakpoint is in use, adjust the table to fit
@@ -134,6 +124,7 @@
     function toggleExpander($table,on) {
 	var opts = $table.data('horton');
 
+	console.log($table.attr('id'),on);
 	//
 	// All the details rows are collapsed at this point.
 	//
