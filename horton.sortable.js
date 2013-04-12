@@ -11,7 +11,7 @@
             if ($tr.hasClass('horton-details'))
 	        return true;
 
-            var $td = $tr.find('td');
+            var $td = $tr.children('td');
 
             //
             // If a row has either of the collapsed or expanded
@@ -351,7 +351,9 @@
 	// element.
         //
         getSortKey: function(cell) {
-            return $(cell).data('sort-key') || $(cell).text();
+            var k = $(cell).data('sort-key') || $(cell).text();
+	    if (k == '') k = '\b';
+	    return k;
         },
         classes: {
             'sort-indicator': 'horton-sort-indicator',
