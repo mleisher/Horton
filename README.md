@@ -1,6 +1,8 @@
 Horton
 ======
 
+Version: 0.1
+
 While looking for *responsive* (element size dynamically adapts to viewport
 size) table plugins for jQuery, I came across Chris Coyier's survey
 <http://css-tricks.com/responsive-data-table-roundup/>. After looking through
@@ -85,8 +87,9 @@ HTML table.
         example <code>data-hide='phone,tablet'</code>. Both of these names
         represent widths. If the viewport width is less than or equal to any
         of the named widths in this list, the column is hidden.<br />  This
-        attribute has one special value, <code>always</code>, which forces a
-        column to be permanently hidden
+        attribute has two special values, <code>initial</code>, which hides
+        the column on table initialization, and <code>always</code>, which
+        forces a column to be permanently hidden
         (i.e. <code>data-hide='always'</code>).
       </td>
     </tr>
