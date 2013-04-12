@@ -41,7 +41,8 @@
         //
         // Construct a regular expression from the term.
         //
-        var re = new RegExp(term.replace(/\s+/g,'|')),
+        var re = new RegExp(term.replace(/\s+/g,'|'),
+			    opts.filterCaseSensitive?"":"i"),
         hidden = false,
         $rows = $table.find('>tbody:first>tr:not(.horton-details)');
 
@@ -121,6 +122,7 @@
         filterSelector: '.horton-filter',
         filterDelay: 300,
         minFilterKeys: 2,
+	filterCaseSensitive: false,
         //
         // Internal data.
         //
