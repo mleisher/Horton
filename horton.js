@@ -33,7 +33,7 @@
 	//
 	// Find the pivotal breakpoint.
 	//
-	var vwd = viewportWidth(opts), hide=['always'], show=[];
+	var vwd = viewportWidth(opts), hide=['always','initial'], show=[];
 	$.each(opts.bkpt,function(k,v){
 	    if (v.width>=vwd) hide.push(v.name); else show.push(v.name);
 	});
