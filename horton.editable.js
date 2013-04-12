@@ -116,11 +116,11 @@
 	// Override the default show and hide functions.
 	//
 	showDetails: editRowStart,
-	hideDetails: editRowEnd
+	hideDetails: editRowEnd,
         //
         // Internal. Whether editing is occurring.
         //
-        editing: false,
+        editing: false
     };
 
     w.horton.plugins.register(w,editable,defaults);
