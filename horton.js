@@ -338,7 +338,6 @@
 	    if (!$next || !$next.hasClass('horton-details')) {
 		$next = $("<tr class='horton-details'><td colspan='"+vsibs+"'></td></tr>");
 		$row.after($next);
-		opts.numDetailRows++;
 	    } else {
 		//
 		// It is possible that the column span will change at
@@ -449,7 +448,8 @@
 	var $table = this,
 	    opts = $table.data('horton');
 
-	return $table.get(0).tBodies[0].rows.length - opts.numDetailRows;
+	return $table.get(0).tBodies[0].rows.length -
+            $table.find('tr.horton-details').size();
     }
     //
     // Replace the specified rows.
@@ -603,7 +603,6 @@
 	    toColumnData: [],
 	    bkpt: [],
 	    timer: null,
-	    numDetailRows: 0,
 	    expander: false,
 	    expanderColumn: 0
 	},
