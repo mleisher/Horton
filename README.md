@@ -635,13 +635,35 @@ None.
     </tr>
     <tr>
       <td>
-        minFilterKeys
+        filterMinKeys
       </td>
       <td>
         2
       </td>
       <td>
         The minimum number of letters before a search can take place.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        filterCaseSensitive
+      </td>
+      <td>
+        false
+      </td>
+      <td>
+        Whether the search should be done case sensitive or not.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        filterHTML
+      </td>
+      <td>
+        false
+      </td>
+      <td>
+        Whether to search the HTML of the cells instead of the text.
       </td>
     </tr>
   </tbody>
@@ -657,9 +679,23 @@ This plugin only provides one request.
 
 ```javascript
           //
-          // Show only rows containing the strings 'Ar' or 'Bo'.
+          // $(selector).horton('filter',term,caseSensitive,HTML)
           //
-          $('table.responsive').horton('filter','Ar Bo');
+          //   term (string): Space separated group of search terms.
+          //   caseSensitive (boolean): Search case sensitive or not.
+          //   HTML (boolean): Search the HTML instead of the text.
+          //
+
+          //
+          // Show only rows containing the strings 'Ar' or 'Bo', search case
+          // sensitive, and search the text, not the HTML.
+          //
+          $('table.responsive').horton('filter','Ar Bo',true,false);
+
+          //
+          // Search the table for the exact string in the HTML.
+          //
+          $('table.responsive').horton('filter','value="Card Based"',true,true);
           //
           // Clear the last filter request.
           //
