@@ -255,8 +255,8 @@ changes the test breakpoint dynamically.
         default function
       </td>
       <td>
-        This is the function called to show hidden columns in a row added
-        beneath the row clicked.
+        This is the function called to format the hidden columns for display
+        in a row added beneath the row clicked.
         <p />
         <code>function showDetails(options,visible,hidden,container)</code>
         <br />
@@ -277,8 +277,8 @@ changes the test breakpoint dynamically.
         null
       </td>
       <td>
-        This is the function called to hide the row containing the hidden
-        columns.
+        This is the function called to perform any actions needed before the
+        row showing the hidden columns is hidden.
         <p />
         Has the same parameters as <code>showDetails</code>.
       </td>
@@ -489,9 +489,8 @@ changed.
         true
       </td>
       <td>
-        This indicates whether sorting is enabled or not. As of version 0.1,
-        there is no way to dynamically disable sorting. That feature will
-        be available soon.
+        This indicates whether sorting is enabled or not. It can be changed at
+        any time.
       </td>
     </tr>
     <tr>
@@ -554,8 +553,8 @@ The sorting plugin only provides one request.
 
 This plugin only triggers one custom event at the moment,
 <code>horton.sorted</code>, triggered after sorting is done by clicking on a
-header and passing the header name and whether the sort was descending or
-not.
+header. The event handler is passed the header name and whether the sort was
+descending or not.
 
 ```javascript
            $('table.responsive').on('horton.sorted',
