@@ -782,7 +782,7 @@ initialization time.
 
 None.
 
-####Editing Options
+####Editing Events
 
 None.
 
