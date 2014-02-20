@@ -49,7 +49,7 @@
         // Construct a regular expression from the term.
         //
 	var re = (regex) ?
-	    new RegExp(term.replace(/\s+/g,'|'),caseSensitive?"":"i") :
+	    new RegExp(term,caseSensitive?"":"i") :
 	    new RegExp(term.replace(/[-[\]{}()*+?.,\\^$|#\s]/g,"\\$&"),
 		       caseSensitive?"":"i"),
         hidden = false,
