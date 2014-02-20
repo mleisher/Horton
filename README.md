@@ -1,7 +1,7 @@
 Horton
 ======
 
-Version: 0.1
+Version: 0.2
 
 While looking for *responsive* (element size dynamically adapts to viewport
 size) table plugins for jQuery, I came across Chris Coyier's survey
@@ -310,12 +310,12 @@ to one of these tables.
   Horton core and the others are the plugin versions.
 
 ```javascript
-          var v = $('table.responsive').horton('version');
-          for (var i = 0; i < v.length; i++) {
-             if (i == 0) console.log('Horton Version');
-             console.log(v[i].name, v[i].version.major+"."+v[i].version.minor);
-             if (i == 0 && v.length > 1) console.log('Plugin Versions');
-          }
+var v = $('table.responsive').horton('version');
+for (var i = 0; i < v.length; i++) {
+  if (i == 0) console.log('Horton Version');
+  console.log(v[i].name, v[i].version.major+"."+v[i].version.minor);
+  if (i == 0 && v.length > 1) console.log('Plugin Versions');
+}
 ```
 
 * options
@@ -325,10 +325,10 @@ to one of these tables.
   objects from the tables selected.
 
 ```javascript
-          var opts = $('table.responsive').horton('options');
-          $.each(opts.breakpoints,function(k,v){
-            console.log(k,opts.breakpoints[k]);
-          });
+var opts = $('table.responsive').horton('options');
+$.each(opts.breakpoints,function(k,v){
+  console.log(k,opts.breakpoints[k]);
+});
 ```
 
 * numRows
@@ -349,8 +349,8 @@ to one of these tables.
   keep track of the number of *details* rows that have been opened.
 
 ```javascript
-          var rows = '<tr><td>Solomon</td><td>Landa</td><td>789 1st St</td><td>landa@solomon.com</td><td>777-888-9999</td><td>No</td></tr>";
-          $('table.responsive').horton('insertRows',2,rows);
+var rows = '<tr><td>Solomon</td><td>Landa</td><td>789 1st St</td><td>landa@solomon.com</td><td>777-888-9999</td><td>No</td></tr>';
+$('table.responsive').horton('insertRows',2,rows);
 ```
 
 * replaceRows
@@ -366,21 +366,21 @@ to one of these tables.
   keep track of the number of *details* rows that have been opened.
 
 ```javascript
-          var newRow = '<tr><td>Solomon</td><td>Landa</td><td>789 1st St</td><td>landa@solomon.com</td><td>777-888-9999</td><td>No</td></tr>";
-          //
-          // Replace all rows in the table with newRow.
-          //
-          $('table.responsive').horton('replaceRows',newRow);
+var newRow = '<tr><td>Solomon</td><td>Landa</td><td>789 1st St</td><td>landa@solomon.com</td><td>777-888-9999</td><td>No</td></tr>';
+//
+// Replace all rows in the table with newRow.
+//
+$('table.responsive').horton('replaceRows',newRow);
 
-          //
-          // Insert newRow before row 5 in the table.
-          //
-          $('table.responsive').horton('replaceRows',5,newRow);
+//
+// Insert newRow before row 5 in the table.
+//
+$('table.responsive').horton('replaceRows',5,newRow);
 
-          //
-          // Replace rows 5, 6, and 7 with newRow.
-          //
-          $('table.responsive').horton('replaceRows',5,8,newRow);
+//
+// Replace rows 5, 6, and 7 with newRow.
+//
+$('table.responsive').horton('replaceRows',5,8,newRow);
 ```
 
 ###Core Events
@@ -536,17 +536,17 @@ The sorting plugin only provides one request.
   the table cells.
 
 ```javascript
-          //
-          // Tell the sorting plugin to sort by the Address column in
-          // descending order.
-          //
-          $('table.responsive').horton('sort','Address',true);
+//
+// Tell the sorting plugin to sort by the Address column in
+// descending order.
+//
+$('table.responsive').horton('sort','Address',true);
 
-          //
-          // Tell the sorting plugin to sort by the First Name column in
-          // ascending order.
-          //
-          $('table.responsive').horton('sort','First Name',false);
+//
+// Tell the sorting plugin to sort by the First Name column in
+// ascending order.
+//
+$('table.responsive').horton('sort','First Name',false);
 ```
 
 ####Sorting Events
@@ -557,11 +557,10 @@ header. The event handler is passed the header name and whether the sort was
 descending or not.
 
 ```javascript
-           $('table.responsive').on('horton.sorted',
-                      function(event,columnName,descending){
-                         console.log('Sorted column '+columnName+' '+
-                                     (descending)?'descending':'ascending');
-                      });
+$('table.responsive').on('horton.sorted',
+  function(event,columnName,descending){
+    console.log('Sorted column '+columnName+' '+(descending)?'descending':'ascending');
+});
 ```
 
 * * *
@@ -569,16 +568,35 @@ descending or not.
 ###Horton Filter Plugin
 
 This plugin collects text from an input element and uses it to search the text
-of the table rows. Multiple search terms can be used by putting a space in
-between each term. The plugin creates a regular expression using alternation
-to search with (i.e. "Ar Bo 45" gets turned into the regular expression
-"Ar|Bo|45").
+of the table rows. By default, the search term is treated a simple string to
+match against row contents, but if the regular expression option is enabled,
+the term is treated as a Javascript regular express.
 
 To clear the value in the input element, press the ESC (Escape) key.
 
 ####Filter Attributes
 
-None.
+<table rules='all' frame='border'>
+  <thead>
+    <tr>
+      <th>Attribute Name</th><th>Type</th><th>Context<th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>data-filter-ignore</td>
+      <td>boolean</td>
+      <td>
+        &lt;TR&gt;<br />&lt;TD&gt;
+      </td>
+      <td>
+        When a &lt;TR&gt; element has this attribute, filtering ignores the
+        row completely. If a &lt;TD&gt; element has this attribute, filtering
+        ignores the element when searching for a match.
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ####Filter Options
 
@@ -665,6 +683,17 @@ None.
         Whether to search the HTML of the cells instead of the text.
       </td>
     </tr>
+    <tr>
+      <td>
+        filterRegex
+      </td>
+      <td>
+        false
+      </td>
+      <td>
+        Whether to treat the search term as a regular expression.
+      </td>
+    </tr>
   </tbody>
 </table>
 
@@ -677,28 +706,29 @@ This plugin only provides one request.
   This request can be used to programatically filter rows in the table.
 
 ```javascript
-          //
-          // $(selector).horton('filter',term,caseSensitive,HTML)
-          //
-          //   term (string): Space separated group of search terms.
-          //   caseSensitive (boolean): Search case sensitive or not.
-          //   HTML (boolean): Search the HTML instead of the text.
-          //
+//
+// $(selector).horton('filter',term,caseSensitive,HTML,regex)
+//
+//   term (string): Space separated group of search terms.
+//   caseSensitive (boolean): Search case sensitive or not.
+//   HTML (boolean): Search the HTML instead of the text.
+//   regex (boolean): Whether term is regular expression or not.
+//
 
-          //
-          // Show only rows containing the strings 'Ar' or 'Bo', search case
-          // sensitive, and search the text, not the HTML.
-          //
-          $('table.responsive').horton('filter','Ar Bo',true,false);
+//
+// Show only rows containing the strings 'Ar' or 'Bo', search case
+// sensitive, and search the text, not including the HTML.
+//
+$('table.responsive').horton('filter','Ar|Bo',true,false,true);
 
-          //
-          // Search the table for the exact string in the HTML.
-          //
-          $('table.responsive').horton('filter','value="Card Based"',true,true);
-          //
-          // Clear the last filter request.
-          //
-          $('table.responsive').horton('filter','');
+//
+// Search the table for the exact string in the HTML.
+//
+$('table.responsive').horton('filter','value="Card Based"',true,true,false);
+//
+// Clear the last filter request.
+//
+$('table.responsive').horton('filter','');
 ```
 
 ####Filter Events
