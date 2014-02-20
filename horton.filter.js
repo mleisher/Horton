@@ -124,7 +124,7 @@
 
     var filter = {
         name: 'Horton Filter Plugin',
-        version: {major: 0, minor: 1},
+        version: {major: 0, minor: 2},
         init: hortonFilterInit,
 	methods: {
             'filter': hortonFilter
