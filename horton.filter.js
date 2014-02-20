@@ -21,13 +21,18 @@
     //
     // Perform the search.
     //
-    function hortonFilter(term,caseSensitive,html) {
+    function hortonFilter(term,caseSensitive,html,regex) {
         var $table = $(this),
         opts = $table.data('horton'),
-        term = term || $(opts.filterSelector).val(),
         caseSensitive = caseSensitive || opts.filterCaseSensitive,
         html = html || opts.filterHTML,
+	regex = regex || opts.filterRegex,
 	found = false;
+
+        if (term == undefined)
+            term = $(opts.filterSelector).val();
+        else if (term.length == 0)
+            $(opts.filterSelector).val('');
 
         opts.filterTimer = null;
 
@@ -43,15 +48,20 @@
         //
         // Construct a regular expression from the term.
         //
-        var re = new RegExp(term.replace(/\s+/g,'|'),caseSensitive?"":"i"),
+	var re = (regex) ?
+	    new RegExp(term.replace(/\s+/g,'|'),caseSensitive?"":"i") :
+	    new RegExp(term.replace(/[-[\]{}()*+?.,\\^$|#\s]/g,"\\$&"),
+		       caseSensitive?"":"i"),
         hidden = false,
         $rows = $table.find('>tbody:first>tr:not(.horton-details)');
 
 	$rows.each(function(){
             var $r = $(this),
-            t = (!html) ? $r.find('td').text() : $r.find('td').html();
+            t = (!html) ?
+		$r.find('td[data-filter-ignore!="true"]').text() :
+		$r.find('td[data-filter-ignore!="true"]').html();
 
-            if (t.search(re) > -1) {
+            if ($r.data('filter-ignore') || t.search(re) > -1) {
                 if (!hidden) {
                     //
                     // Only hide everything if at least one match is found.
@@ -127,6 +137,7 @@
         filterMinKeys: 2,
 	filterCaseSensitive: false,
         filterHTML: false,
+	filterRegex: false,
         //
         // Internal data.
         //
